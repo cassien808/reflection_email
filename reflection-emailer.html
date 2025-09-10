@@ -19,7 +19,7 @@
       margin-bottom: 12px;
     }
     #rise-reflection-container textarea,
-    #rise-reflection-container input[type="email"] {
+    #rise-reflection-container input[type="text"] {
       width: 100%;
       padding: 8px;
       border-radius: 4px;
@@ -31,7 +31,7 @@
       resize: vertical;
       margin-bottom: 12px;
     }
-    #rise-reflection-container input[type="email"] {
+    #rise-reflection-container input[type="text"] {
       margin-bottom: 12px;
     }
     #send-reflection-btn {
@@ -59,7 +59,7 @@
   <div id="rise-reflection-container">
     <h3>Reflection</h3>
     <textarea id="reflection-text" placeholder="Write your reflection here..." rows="6"></textarea>
-    <input type="email" id="user-email" placeholder="Your email address" />
+    <input type="text" id="user-email" placeholder="Your email address" />
     <button id="send-reflection-btn">Send Reflection to Email</button>
     <div id="reflection-message"></div>
   </div>
@@ -76,6 +76,9 @@
       btn.onclick = function() {
         var reflection = document.getElementById("reflection-text").value.trim();
         var email = document.getElementById("user-email").value.trim();
+        // Output raw email input for debugging
+        console.log("Email entered:", email);
+
         msgDiv.innerHTML = "";
 
         // Validate
@@ -110,7 +113,8 @@
       };
 
       function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        // Simple permissive regex -- allows most valid emails, prevents blank/garbage input
+        return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
       }
     })();
   </script>
