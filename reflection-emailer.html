@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reflection Emailer</title>
+</head>
+<body>
+  <form id="reflection-form">
+    <textarea id="reflection" name="reflection" placeholder="Type your reflection..." rows="8" style="width:100%"></textarea>
+    <br>
+    <input type="email" id="user_email" name="user_email" placeholder="Your email" required />
+    <br>
+    <button type="submit">Email my reflection</button>
+  </form>
+  <div id="result-message"></div>
+
+  <!-- EmailJS SDK and initialization -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init({
+        publicKey: "xbrRnblqLJkUZOa-y",
+      });
+    })();
+
+    document.getElementById('reflection-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const serviceID = 'service_nyv0e7q';
+      const templateID = 'template_n8xvr3h';
+
+      emailjs.sendForm(serviceID, templateID, this)
+        .then(() => {
+          document.getElementById('result-message').innerHTML = "Reflection sent! Please check your inbox.";
+          document.getElementById('reflection-form').reset();
+        }, () => {
+          document.getElementById('result-message').innerHTML = "Failed to send reflection. Please try again.";
+        });
+    });
+  </script>
+</body>
+</html>
